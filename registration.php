@@ -9,6 +9,24 @@
 </head>
 <body>
     <div class="container">
+    <?php
+        if(isset($_POST["submit"])){
+            $fullname=$_POST["fullname"];
+            $email=$_POST["email"];
+            $password=$_POST["password"];
+            $repeatpassword=$_POST["repeat_password"];
+            $errors=array();
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                array_push($errors,"Enter a valid e-mail");
+            }
+            if (strlen($password) < 8){
+                array_push($errors,"Password must be at least 8 characters long");
+            }
+            if($password !== $repeatpassword){
+                array_push($errors,"Password does not match");
+            }
+        }
+        ?>
         <form action="registration.php" method="post">
             <div class="form-group">
                 <input type="text" class="form-control" name="fullname" placeholder="Fullname" required>
